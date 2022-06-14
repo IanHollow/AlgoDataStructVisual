@@ -1,18 +1,8 @@
-class DynamicArray {
-    #MIN_FACTOR = 1 / 4
-
+export class DynamicArray {
     constructor() {
         this.size = 0;
         this.capacity = 1;
         this.arr = this.#make_array(this.capacity);
-    }
-
-    size() {
-        return this.size;
-    }
-
-    capacity() {
-        return this.capacity;
     }
 
     is_empty() {
@@ -66,7 +56,7 @@ class DynamicArray {
         }
 
         let element = this.arr[this.size - 1];
-        this.arr[this.size - 1] = null;
+        this.arr[this.size - 1] = "None";
         this.size -= 1;
 
         return element;
@@ -78,7 +68,7 @@ class DynamicArray {
         }
 
         if (index === this.size - 1) {
-            this.arr[index] = null;
+            this.arr[index] = "None";
             this.size -= 1;
             return;
         }
@@ -91,7 +81,7 @@ class DynamicArray {
             this.arr[i] = this.arr[i + 1];
         }
 
-        this.arr[this.size - 1] = null;
+        this.arr[this.size - 1] = "None";
         this.size -= 1;
     }
 
@@ -117,7 +107,7 @@ class DynamicArray {
     }
 
     #make_array(new_capacity) {
-        return new Array(new_capacity).fill(null);
+        return new Array(new_capacity).fill("None");
     }
 
     print() {
@@ -125,36 +115,36 @@ class DynamicArray {
     }
 }
 
-let arr = new DynamicArray();
+// let arr = new DynamicArray();
 
-arr.push(1);
-arr.push(2);
-arr.push(3);
-arr.push(4);
-arr.push(5);
+// arr.push(1);
+// arr.push("2");
+// arr.push('Three');
+// arr.push(4);
+// arr.push(5);
 
-arr.print();
+// arr.print();
 
-console.log(arr.size);
+// console.log(arr.size);
 
-console.log(arr.is_empty());
+// console.log(arr.is_empty());
 
-console.log(arr.get(1));
+// console.log(arr.get(1));
 
-arr.insert(2, 9);
+// arr.insert(2, 9);
 
-arr.print();
+// arr.print();
 
-arr.prepend(0);
+// arr.prepend(0);
 
-arr.print();
+// arr.print();
 
-arr.pop();
+// arr.pop();
 
-arr.print();
+// arr.print();
 
-arr.removeAt(1);
+// arr.removeAt(1);
 
-arr.print();
+// arr.print();
 
-console.log(arr.find(9));
+// console.log(arr.find(9));
