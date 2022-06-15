@@ -37,8 +37,8 @@ export class DynamicArray {
         this.size += 1;
     }
 
-    insert(index, element) {
-        if (index < 0 || index >= this.size) {
+    insert(element, index) {
+        if (index < 0 || index > this.size) {
             return Error("Enter an Appropiate Index");
         }
 
