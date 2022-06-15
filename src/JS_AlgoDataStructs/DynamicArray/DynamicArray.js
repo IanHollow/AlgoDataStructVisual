@@ -5,6 +5,14 @@ export class DynamicArray {
         this.arr = this.#make_array(this.capacity);
     }
 
+    getSize() {
+        return this.size;
+    }
+
+    getCapacity() {
+        return this.capacity;
+    }
+
     is_empty() {
         if (this.size === 0) {
             return true;

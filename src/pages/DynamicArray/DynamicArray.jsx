@@ -6,28 +6,47 @@ import { Formik, Field, Form } from "formik"
 class DynamicArray extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { dynaArr: new DynaArr() }
+        let new_dynaArr = new DynaArr();
+        this.state = {
+            dynaArr: new_dynaArr,
+            length: new_dynaArr.getSize(),
+            capacity: new_dynaArr.getCapacity()
+        }
+    }
+
+    resetDynaArr() {
+        let new_dynaArr = new DynaArr();
+        this.setState({
+            dynaArr: new_dynaArr,
+            length: new_dynaArr.getSize(),
+            capacity: new_dynaArr.getCapacity()
+        });
     }
 
     displayDynamicArray(dynaArr) {
         let convrt_arr = [];
 
-        for (let i = 0; i < dynaArr.capacity; i++) {
+        for (let i = 0; i < dynaArr.getCapacity(); i++) {
             convrt_arr.push(
-                <div className="card">
+                <div className="card" key={i}>
                     <div className="card-body">
                         <h5 className="card-title text-center">{dynaArr.arr[i]}</h5>
                     </div>
                 </div>
             );
         }
+
         return convrt_arr
     }
 
-    setDynaArr(new_element) {
+    addDynaArr(new_element) {
         let old_dynaArr = this.state.dynaArr;
         old_dynaArr.push(new_element);
-        this.setState({ dynaArr: old_dynaArr });
+        this.setState({
+            dynaArr: old_dynaArr,
+            length: old_dynaArr.getSize(),
+            capacity: old_dynaArr.getCapacity()
+        });
     }
 
     render() {
@@ -41,21 +60,33 @@ class DynamicArray extends React.Component {
                     </div>
                 </div>
 
-                <Formik
-                    initialValues={{
-                        "add_element": ""
-                    }}
-                    onSubmit={(values) => {
-                        this.setDynaArr(values.add_element);
-                    }}
-                >
-                    <Form>
-                        <label htmlFor="add_element">Push Element</label>
-                        <Field id="add_element" name="add_element" placeholder="any value" />
+                <div className="container">
+                    <div className="row">
+                        <div className="col text-center">
+                            <Formik
+                                initialValues={{
+                                    "add_element": ""
+                                }}
+                                onSubmit={(values) => {
+                                    this.addDynaArr(values.add_element);
+                                }}
+                            >
+                                <Form>
+                                    <label htmlFor="add_element">Push Element</label>
+                                    <Field id="add_element" name="add_element" placeholder="any value" />
 
-                        <button type="Submit">Submit</button>
-                    </Form>
-                </Formik>
+                                    <button className="btn btn-primary" type="Submit">Submit</button>
+                                </Form>
+                            </Formik>
+                        </div>
+                        <div className="col text-center">
+                            Length: {this.state.length} | Capacity: {this.state.capacity}
+                        </div>
+                        <div className="col text-center">
+                            <button type="button" className="btn btn-light" onClick={() => this.resetDynaArr()}>Clear</button>
+                        </div>
+                    </div>
+                </div>
 
                 <div className="card-group p-3">
                     {this.displayDynamicArray(this.state.dynaArr)}
